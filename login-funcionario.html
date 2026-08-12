@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Funcionário - Cuidado Humanizado Batista</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .login-box { max-width: 400px; margin: 60px auto; background: var(--branco); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--sombra); }
+    .login-box h2 { color: var(--azul-escuro); text-align: center; }
+    .login-box .subtitle { text-align: center; color: var(--cinza-claro-texto); font-size: 0.9rem; margin-bottom: 24px; }
+    .login-box .form-group { margin-bottom: 16px; }
+    .login-box .form-group label { display: block; font-weight: 600; margin-bottom: 4px; color: var(--azul-escuro); }
+    .login-box .form-group input { width: 100%; padding: 10px 14px; border: 1px solid var(--cinza-borda); border-radius: 8px; font-size: 1rem; }
+    .login-box .form-group input:focus { border-color: var(--azul-medio); outline: none; box-shadow: 0 0 0 3px rgba(41,128,185,0.15); }
+    .login-box .btn-login { width: 100%; padding: 12px; background: var(--azul-medio); color: var(--branco); border: none; border-radius: 30px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
+    .login-box .btn-login:hover { background: var(--azul-escuro); transform: translateY(-2px); }
+    .login-box .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .login-box .link-register { text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--cinza-claro-texto); }
+    .login-box .link-register a { color: var(--azul-medio); text-decoration: none; font-weight: 600; }
+    #loginMensagem { margin-top: 12px; text-align: center; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav class="navbar">
+      <a href="index.html" class="logo-img">
+        <img src="https://i.postimg.cc/44HtyBF7/eb74c209-2d52-4f7a-a0ee-88cc4ad9f9d8.jpg" alt="Cuidado Humanizado Batista" style="height: 45px; width: auto;">
+        <span class="logo-text">CUIDADO<br><span class="destaque">HUMANIZADO</span><br><small style="font-size:0.6rem; color:#B0C4D0;">BATISTA</small></span>
+      </a>
+      <button class="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre Nós</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="equipe.html">Nossa Equipe</a></li>
+        <li><a href="funcionarios.html">Funcionários</a></li>
+        <li><a href="como-funciona.html">Como Funciona</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contato.html">Contato</a></li>
+        <li><a href="login-funcionario.html" class="btn-solicitar" style="background: #2980B9;">Área Funcionário</a></li>
+        <li><a href="admin.html" class="btn-solicitar" style="background: #2E7D32;">Admin</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section style="padding: 120px 0 60px; min-height: 70vh;">
+  <div class="container">
+    <div class="login-box">
+      <h2>👤 Login Funcionário</h2>
+      <p class="subtitle">Acesse sua área pessoal</p>
+      <form id="loginFuncionarioForm">
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Senha</label>
+          <input type="password" id="loginPassword" placeholder="********" required>
+        </div>
+        <button type="submit" class="btn-login" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+        <div id="loginMensagem"></div>
+      </form>
+      <div class="link-register">
+        <a href="registrar-funcionario.html">Ainda não tem conta? Cadastre-se</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <img src="https://i.postimg.cc/44HtyBF7/eb74c209-2d52-4f7a-a0ee-88cc4ad9f9d8.jpg" alt="Cuidado Humanizado Batista" style="height: 45px; width: auto;">
+          <span style="font-size: 1.4rem; font-weight: 700; color: var(--branco);">Cuidado Humanizado Batista</span>
+        </div>
+        <p style="color: var(--azul-claro); font-weight: 500; font-size: 1.1rem; margin-bottom: 12px;"><i class="fas fa-quote-left" style="font-size: 0.8rem;"></i> Carinho que transforma <i class="fas fa-quote-right" style="font-size: 0.8rem;"></i></p>
+        <div style="margin-top: 16px; border-top: 1px solid #1A3A4F; padding-top: 16px;">
+          <p style="color: #B0C4D0; font-size: 0.9rem; margin-bottom: 4px;"><i class="fas fa-user-circle" style="color: #5DADE2;"></i> <strong style="color: #5DADE2;">Danielly (Principal)</strong> <a href="tel:+5511968090892" style="color: #5DADE2; text-decoration: none;">(11) 96809-0892</a></p>
+          <p style="color: #B0C4D0; font-size: 0.9rem; margin-bottom: 4px;"><i class="fas fa-user-circle"></i> <strong>Samuel</strong> <a href="tel:+5511913031275" style="color: #B0C4D0; text-decoration: none;">(11) 91303-1275</a></p>
+          <p style="color: #B0C4D0; font-size: 0.9rem;"><i class="fas fa-building"></i> <strong>Agência</strong> <a href="tel:+5511991940004" style="color: #B0C4D0; text-decoration: none;">(11) 99194-0004</a></p>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navegação</h4><a href="index.html">Início</a><a href="sobre.html">Sobre Nós</a><a href="servicos.html">Serviços</a><a href="contato.html">Contato</a></div>
+      <div class="footer-col"><h4>Suporte</h4><a href="faq.html">FAQ</a><a href="como-funciona.html">Como Funciona</a><a href="equipe.html">Nossa Equipe</a></div>
+      <div class="footer-col"><h4>Redes Sociais</h4><p><i class="fab fa-facebook"></i> @cuidadohumanizado</p><p><i class="fab fa-instagram"></i> @cuidado.humanizado</p><p><i class="fab fa-youtube"></i> Cuidado Humanizado Batista</p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Cuidado Humanizado Batista - Carinho que transforma.</p><p><small>Principal: Danielly (11) 96809-0892 | Samuel (11) 91303-1275 | Agência (11) 99194-0004</small></p></div>
+  </div>
+</footer>
+
+<div class="whatsapp-float-container">
+  <a href="https://wa.me/5511968090892" target="_blank" class="whatsapp-float danielly" style="background-color: #128C7E; border: 2px solid #5DADE2;"><i class="fab fa-whatsapp"></i><span class="label" style="background: #5DADE2; color: #fff;">Danielly (Principal)</span></a>
+  <a href="https://wa.me/5511913031275" target="_blank" class="whatsapp-float samuel"><i class="fab fa-whatsapp"></i><span class="label">Samuel</span></a>
+  <a href="https://wa.me/5511991940004" target="_blank" class="whatsapp-float agencia" style="background-color: #34B7F1;"><i class="fab fa-whatsapp"></i><span class="label">Agência</span></a>
+</div>
+
+<button id="btn-topo"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+const API_URL = 'https://backend-cuidado-humanizado-api.onrender.com';
+
+// ===== LOGIN FUNCIONÁRIO =====
+document.getElementById('loginFuncionarioForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  const msg = document.getElementById('loginMensagem');
+  const btn = document.getElementById('btnLogin');
+
+  if (!email || !password) {
+    msg.innerHTML = '<span style="color:#e74c3c;">⚠️ Preencha todos os campos.</span>';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+  msg.innerHTML = '';
+
+  try {
+    const res = await fetch(`${API_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      // 🔥 VERIFICA SE É FUNCIONÁRIO
+      if (data.user.role !== 'funcionario') {
+        msg.innerHTML = '<span style="color:#e74c3c;">❌ Esta área é exclusiva para funcionários.</span>';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
+        return;
+      }
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      msg.innerHTML = '<span style="color:#2ecc71;">✅ Login bem-sucedido!</span>';
+
+      // 🔥 REDIRECIONA PARA O DASHBOARD DO FUNCIONÁRIO
+      setTimeout(() => {
+        window.location.href = 'dashboard-funcionario.html';
+      }, 1000);
+    } else {
+      msg.innerHTML = `<span style="color:#e74c3c;">❌ ${data.message || 'Erro no login'}</span>`;
+    }
+  } catch (err) {
+    console.error('Erro:', err);
+    msg.innerHTML = '<span style="color:#e74c3c;">❌ Erro ao conectar com a API</span>';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
+  }
+});
+
+// ===== MENU MOBILE =====
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', function() {
+    navLinks.classList.toggle('active');
+    const icon = this.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    }
+  });
+}
+</script>
+</body>
+</html>
