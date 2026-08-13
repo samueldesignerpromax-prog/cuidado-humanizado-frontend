@@ -209,28 +209,6 @@ header.scrolled {
   color: var(--azul-claro);
 }
 
-.nav-links .btn-solicitar {
-  background-color: var(--azul-claro);
-  color: var(--branco) !important;
-  padding: 8px 18px;
-  border-radius: 50px;
-  transition: var(--transition);
-  font-weight: 600;
-  opacity: 1;
-  font-size: 0.85rem;
-}
-
-.nav-links .btn-solicitar:hover {
-  background-color: var(--branco);
-  color: var(--azul-escuro) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255,255,255,0.2);
-}
-
-.nav-links .btn-solicitar::after {
-  display: none;
-}
-
 .hamburger {
   display: none;
   font-size: 1.8rem;
@@ -280,12 +258,6 @@ header.scrolled {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-}
-
-.hero-imagem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .hero-imagem-placeholder {
@@ -360,27 +332,6 @@ section {
 .card .btn {
   padding: 8px 24px;
   font-size: 0.9rem;
-}
-
-/* ===== DEPOIMENTOS ===== */
-.depoimento {
-  background: var(--branco);
-  padding: 32px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--sombra);
-  border-left: 4px solid var(--azul-medio);
-}
-
-.depoimento p {
-  font-style: italic;
-  font-size: 1.05rem;
-  color: var(--cinza-texto);
-}
-
-.depoimento .autor {
-  margin-top: 16px;
-  font-weight: 600;
-  color: var(--azul-escuro);
 }
 
 /* ===== TIMELINE ===== */
@@ -657,7 +608,7 @@ footer {
   transform: translateY(-4px);
 }
 
-/* ===== WHATSAPP ===== */
+/* ===== WHATSAPP FLOAT ===== */
 .whatsapp-float-container {
   position: fixed;
   bottom: 30px;
@@ -722,7 +673,6 @@ footer {
   .hamburger { display: block; }
   .nav-links { display: none; flex-direction: column; width: 100%; gap: 12px; padding: 16px 0; background: var(--azul-escuro); border-top: 1px solid rgba(255,255,255,0.1); }
   .nav-links.active { display: flex; }
-  .nav-links .btn-solicitar { align-self: center; }
   .hero-texto h1 { font-size: 2.2rem; }
   .section-titulo { font-size: 1.8rem; }
   .hero { padding: 120px 0 60px; }
