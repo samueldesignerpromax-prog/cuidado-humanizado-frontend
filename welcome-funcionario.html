@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bem-vindo - Cuidado Humanizado Batista</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Estilos específicos para a página de boas-vindas */
+    .welcome-box {
+      max-width: 800px;
+      margin: 40px auto;
+      background: var(--branco);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--sombra);
+      border-top: 6px solid var(--azul-medio);
+    }
+    .welcome-box .header-welcome {
+      text-align: center;
+    }
+    .welcome-box .header-welcome .icon {
+      font-size: 4rem;
+      color: var(--azul-medio);
+    }
+    .welcome-box .header-welcome h1 {
+      color: var(--azul-escuro);
+      font-size: 2rem;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+    .welcome-box .header-welcome .subtitle {
+      color: var(--cinza-claro-texto);
+      font-size: 1rem;
+    }
+    .welcome-box .welcome-message {
+      background: #eafaf1;
+      border: 1px solid var(--verde-claro);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--verde-principal);
+    }
+    .welcome-box .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .welcome-box .info-item {
+      background: var(--cinza-claro);
+      padding: 14px 18px;
+      border-radius: 8px;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .welcome-box .info-item label {
+      font-weight: 600;
+      color: var(--azul-escuro);
+      font-size: 0.8rem;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .welcome-box .info-item p {
+      margin: 4px 0 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--cinza-texto);
+    }
+    .welcome-box .info-item .disp-tag {
+      display: inline-block;
+      background: var(--azul-claro);
+      color: var(--branco);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-right: 4px;
+      margin-top: 4px;
+    }
+    .welcome-box .status-badge {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .status-ativo { background: #2ecc71; color: #fff; }
+    .status-inativo { background: #e74c3c; color: #fff; }
+    .welcome-box .actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .welcome-box .actions .btn {
+      min-width: 150px;
+    }
+    @media (max-width: 600px) {
+      .welcome-box .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav class="navbar">
+      <a href="index.html" class="logo-img">
+        <img src="https://i.postimg.cc/44HtyBF7/eb74c209-2d52-4f7a-a0ee-88cc4ad9f9d8.jpg" alt="Cuidado Humanizado Batista" style="height: 45px; width: auto;">
+        <span class="logo-text">CUIDADO<br><span class="destaque">HUMANIZADO</span><br><small style="font-size:0.6rem; color:#B0C4D0;">BATISTA</small></span>
+      </a>
+      <button class="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre Nós</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="equipe.html">Nossa Equipe</a></li>
+        <li><a href="funcionarios.html">Funcionários</a></li>
+        <li><a href="como-funciona.html">Como Funciona</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contato.html">Contato</a></li>
+        <li><a href="login-funcionario.html" class="btn-solicitar" style="background: #2980B9;">Área Funcionário</a></li>
+        <li><a href="admin.html" class="btn-solicitar" style="background: #2E7D32;">Admin</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section style="padding: 120px 0 60px; min-height: 70vh;">
+  <div class="container">
+    <div class="welcome-box" id="welcomeContainer">
+      
+      <!-- Carregando -->
+      <div id="loadingPerfil" style="text-align:center; padding:40px;">
+        <i class="fas fa-spinner fa-spin" style="font-size:2rem; color:var(--azul-medio);"></i>
+        <p>Carregando seu perfil...</p>
+      </div>
+
+      <!-- Conteúdo -->
+      <div id="perfilContent" style="display:none;">
+        
+        <div class="header-welcome">
+          <div class="icon"><i class="fas fa-user-check"></i></div>
+          <h1 id="funcNomeDisplay">Carregando...</h1>
+          <p class="subtitle" id="funcEmailDisplay">email@exemplo.com</p>
+          <p style="margin-top:4px;"><span id="funcStatusBadge" class="status-badge status-ativo">Ativo</span></p>
+        </div>
+
+        <!-- Mensagem de boas-vindas -->
+        <div class="welcome-message">
+          <i class="fas fa-hand-peace"></i> Bem-vindo ao Cuidado Humanizado Batista!
+        </div>
+
+        <!-- Informações -->
+        <div class="info-grid">
+          <div class="info-item">
+            <label>📅 Idade</label>
+            <p id="funcIdadeDisplay">-</p>
+          </div>
+          <div class="info-item">
+            <label>📞 Telefone</label>
+            <p id="funcTelefoneDisplay">-</p>
+          </div>
+          <div class="info-item">
+            <label>🕒 Disponibilidade</label>
+            <p id="funcDisponibilidadeDisplay">-</p>
+          </div>
+          <div class="info-item">
+            <label>💼 Especialidade</label>
+            <p id="funcEspecialidadeDisplay">-</p>
+          </div>
+          <div class="info-item" style="grid-column: 1 / -1;">
+            <label>📝 Descrição</label>
+            <p id="funcDescricaoDisplay">-</p>
+          </div>
+        </div>
+
+        <!-- Ações -->
+        <div class="actions">
+          <a href="index.html" class="btn btn-secundario"><i class="fas fa-home"></i> Voltar ao site</a>
+          <button class="btn btn-primario" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <img src="https://i.postimg.cc/44HtyBF7/eb74c209-2d52-4f7a-a0ee-88cc4ad9f9d8.jpg" alt="Cuidado Humanizado Batista" style="height: 45px; width: auto;">
+          <span style="font-size: 1.4rem; font-weight: 700; color: var(--branco);">Cuidado Humanizado Batista</span>
+        </div>
+        <p style="color: var(--azul-claro); font-weight: 500; font-size: 1.1rem; margin-bottom: 12px;"><i class="fas fa-quote-left" style="font-size: 0.8rem;"></i> Carinho que transforma <i class="fas fa-quote-right" style="font-size: 0.8rem;"></i></p>
+        <div style="margin-top: 16px; border-top: 1px solid #1A3A4F; padding-top: 16px;">
+          <p style="color: #B0C4D0; font-size: 0.9rem; margin-bottom: 4px;"><i class="fas fa-user-circle" style="color: #5DADE2;"></i> <strong style="color: #5DADE2;">Danielly (Principal)</strong> <a href="tel:+5511968090892" style="color: #5DADE2; text-decoration: none;">(11) 96809-0892</a></p>
+          <p style="color: #B0C4D0; font-size: 0.9rem; margin-bottom: 4px;"><i class="fas fa-user-circle"></i> <strong>Samuel</strong> <a href="tel:+5511913031275" style="color: #B0C4D0; text-decoration: none;">(11) 91303-1275</a></p>
+          <p style="color: #B0C4D0; font-size: 0.9rem;"><i class="fas fa-building"></i> <strong>Agência</strong> <a href="tel:+5511991940004" style="color: #B0C4D0; text-decoration: none;">(11) 99194-0004</a></p>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navegação</h4><a href="index.html">Início</a><a href="sobre.html">Sobre Nós</a><a href="servicos.html">Serviços</a><a href="contato.html">Contato</a></div>
+      <div class="footer-col"><h4>Suporte</h4><a href="faq.html">FAQ</a><a href="como-funciona.html">Como Funciona</a><a href="equipe.html">Nossa Equipe</a></div>
+      <div class="footer-col"><h4>Redes Sociais</h4><p><i class="fab fa-facebook"></i> @cuidadohumanizado</p><p><i class="fab fa-instagram"></i> @cuidado.humanizado</p><p><i class="fab fa-youtube"></i> Cuidado Humanizado Batista</p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Cuidado Humanizado Batista - Carinho que transforma.</p><p><small>Principal: Danielly (11) 96809-0892 | Samuel (11) 91303-1275 | Agência (11) 99194-0004</small></p></div>
+  </div>
+</footer>
+
+<div class="whatsapp-float-container">
+  <a href="https://wa.me/5511968090892" target="_blank" class="whatsapp-float danielly" style="background-color: #128C7E; border: 2px solid #5DADE2;"><i class="fab fa-whatsapp"></i><span class="label" style="background: #5DADE2; color: #fff;">Danielly (Principal)</span></a>
+  <a href="https://wa.me/5511913031275" target="_blank" class="whatsapp-float samuel"><i class="fab fa-whatsapp"></i><span class="label">Samuel</span></a>
+  <a href="https://wa.me/5511991940004" target="_blank" class="whatsapp-float agencia" style="background-color: #34B7F1;"><i class="fab fa-whatsapp"></i><span class="label">Agência</span></a>
+</div>
+
+<button id="btn-topo"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+const API_URL = 'https://backend-cuidado-humanizado-api.onrender.com';
+
+// ===== VERIFICAR AUTENTICAÇÃO =====
+async function verificarAutenticacao() {
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  
+  if (!token || user.role !== 'funcionario') {
+    window.location.href = 'login-funcionario.html';
+    return;
+  }
+  
+  await carregarPerfil();
+}
+
+// ===== CARREGAR PERFIL =====
+async function carregarPerfil() {
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  
+  try {
+    const res = await fetch(`${API_URL}/api/funcionarios`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || 'Erro ao carregar perfil');
+    }
+
+    const funcionario = data.find(f => f.userId?._id === user.id || f.userId === user.id);
+
+    if (!funcionario) {
+      document.getElementById('loadingPerfil').innerHTML = 
+        '<p style="color:#e74c3c;">❌ Perfil não encontrado. Entre em contato com o admin.</p>';
+      return;
+    }
+
+    // Preenche os dados
+    document.getElementById('funcNomeDisplay').textContent = funcionario.nomeCompleto;
+    document.getElementById('funcEmailDisplay').textContent = user.email;
+    document.getElementById('funcIdadeDisplay').textContent = `${funcionario.idade} anos`;
+    document.getElementById('funcTelefoneDisplay').textContent = funcionario.telefone;
+
+    // Disponibilidade
+    const disp = [];
+    if (funcionario.disponibilidade?.manha) disp.push('🌅 Manhã');
+    if (funcionario.disponibilidade?.tarde) disp.push('☀️ Tarde');
+    if (funcionario.disponibilidade?.noite) disp.push('🌙 Noite');
+    if (funcionario.disponibilidade?.finaisSemana) disp.push('📅 FDS');
+    document.getElementById('funcDisponibilidadeDisplay').innerHTML = disp.length ? disp.map(d => `<span class="disp-tag">${d}</span>`).join('') : 'Não informado';
+
+    document.getElementById('funcEspecialidadeDisplay').textContent = funcionario.especialidade || 'Não informada';
+    document.getElementById('funcDescricaoDisplay').textContent = funcionario.descricao || 'Não informada';
+
+    // Status
+    const statusBadge = document.getElementById('funcStatusBadge');
+    if (funcionario.ativo !== false) {
+      statusBadge.textContent = '✅ Ativo';
+      statusBadge.className = 'status-badge status-ativo';
+    } else {
+      statusBadge.textContent = '❌ Inativo';
+      statusBadge.className = 'status-badge status-inativo';
+    }
+
+    document.getElementById('loadingPerfil').style.display = 'none';
+    document.getElementById('perfilContent').style.display = 'block';
+
+  } catch (err) {
+    console.error('Erro ao carregar perfil:', err);
+    document.getElementById('loadingPerfil').innerHTML = 
+      `<p style="color:#e74c3c;">❌ Erro ao carregar perfil: ${err.message}. Tente novamente.</p>`;
+  }
+}
+
+// ===== LOGOUT =====
+function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  window.location.href = 'login-funcionario.html';
+}
+
+// ===== MENU MOBILE =====
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', function() {
+    navLinks.classList.toggle('active');
+    const icon = this.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    }
+  });
+}
+
+// ===== INICIAR =====
+verificarAutenticacao();
+</script>
+</body>
+</html>
