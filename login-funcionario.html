@@ -55,20 +55,12 @@
       <h2>👤 Login Funcionário</h2>
       <p class="subtitle">Acesse sua área pessoal</p>
       <form id="loginFuncionarioForm">
-        <div class="form-group">
-          <label>E-mail</label>
-          <input type="email" id="loginEmail" placeholder="seu@email.com" required>
-        </div>
-        <div class="form-group">
-          <label>Senha</label>
-          <input type="password" id="loginPassword" placeholder="********" required>
-        </div>
+        <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" placeholder="seu@email.com" required></div>
+        <div class="form-group"><label>Senha</label><input type="password" id="loginPassword" placeholder="********" required></div>
         <button type="submit" class="btn-login" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Entrar</button>
         <div id="loginMensagem"></div>
       </form>
-      <div class="link-register">
-        <a href="registrar-funcionario.html">Ainda não tem conta? Cadastre-se</a>
-      </div>
+      <div class="link-register"><a href="registrar-funcionario.html">Ainda não tem conta? Cadastre-se</a></div>
     </div>
   </div>
 </section>
@@ -134,7 +126,7 @@ document.getElementById('loginFuncionarioForm').addEventListener('submit', async
     const data = await res.json();
 
     if (res.ok) {
-      // 🔥 VERIFICA SE É FUNCIONÁRIO
+      // Verifica se é funcionário
       if (data.user.role !== 'funcionario') {
         msg.innerHTML = '<span style="color:#e74c3c;">❌ Esta área é exclusiva para funcionários.</span>';
         btn.disabled = false;
