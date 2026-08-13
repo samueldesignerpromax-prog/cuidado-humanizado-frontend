@@ -27,7 +27,6 @@
       text-align: center;
       margin-top: 8px;
     }
-    /* 🔥 MENSAGEM DE BOAS-VINDAS EM DESTAQUE */
     .welcome-message {
       text-align: center;
       font-size: 1.3rem;
@@ -198,7 +197,7 @@
           <span id="funcStatusBadge" class="status-badge status-ativo">Ativo</span>
         </p>
 
-        <!-- 🔥 MENSAGEM DE BOAS-VINDAS EM DESTAQUE -->
+        <!-- MENSAGEM DE BOAS-VINDAS EM DESTAQUE -->
         <div class="welcome-message">
           <i class="fas fa-hand-peace"></i> Bem-vindo ao Cuidado Humanizado Batista!
         </div>
@@ -290,36 +289,26 @@ async function verificarAutenticacao() {
   await carregarPerfil();
 }
 
-// ===== CARREGAR PERFIL =====
+// ===== CARREGAR PERFIL (USANDO /me) =====
 async function carregarPerfil() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   
   try {
-    const res = await fetch(`${API_URL}/api/funcionarios`, {
+    const res = await fetch(`${API_URL}/api/funcionarios/me`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    const data = await res.json();
+    const funcionario = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.message || 'Erro ao carregar perfil');
+      throw new Error(funcionario.message || 'Erro ao carregar perfil');
     }
 
-    const funcionario = data.find(f => f.userId?._id === user.id || f.userId === user.id);
-
-    if (!funcionario) {
-      document.getElementById('loadingPerfil').innerHTML = 
-        '<p style="color:#e74c3c;">❌ Perfil não encontrado. Entre em contato com o admin.</p>';
-      return;
-    }
-
-    // Preenche os dados
     document.getElementById('funcNomeDisplay').textContent = funcionario.nomeCompleto;
-    document.getElementById('funcEmailDisplay').textContent = user.email;
+    document.getElementById('funcEmailDisplay').textContent = funcionario.userId?.email || user.email;
     document.getElementById('funcIdadeDisplay').textContent = `${funcionario.idade} anos`;
     document.getElementById('funcTelefoneDisplay').textContent = funcionario.telefone;
 
-    // Disponibilidade
     const disp = [];
     if (funcionario.disponibilidade?.manha) disp.push('🌅 Manhã');
     if (funcionario.disponibilidade?.tarde) disp.push('☀️ Tarde');
@@ -330,7 +319,6 @@ async function carregarPerfil() {
     document.getElementById('funcEspecialidadeDisplay').textContent = funcionario.especialidade || 'Não informada';
     document.getElementById('funcDescricaoDisplay').textContent = funcionario.descricao || 'Não informada';
 
-    // Status
     const statusBadge = document.getElementById('funcStatusBadge');
     if (funcionario.ativo !== false) {
       statusBadge.textContent = '✅ Ativo';
