@@ -8,56 +8,255 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .admin-login { max-width: 400px; margin: 60px auto; background: var(--branco); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--sombra); }
-    .admin-login h2 { color: var(--azul-escuro); text-align: center; }
-    .admin-login .subtitle { text-align: center; color: var(--cinza-claro-texto); font-size: 0.9rem; margin-bottom: 24px; }
-    .admin-login .form-group { margin-bottom: 16px; }
-    .admin-login .form-group label { display: block; font-weight: 600; margin-bottom: 4px; color: var(--azul-escuro); }
-    .admin-login .form-group input { width: 100%; padding: 10px 14px; border: 1px solid var(--cinza-borda); border-radius: 8px; font-size: 1rem; }
-    .admin-login .form-group input:focus { border-color: var(--azul-medio); outline: none; box-shadow: 0 0 0 3px rgba(41,128,185,0.15); }
-    .admin-login .btn-login { width: 100%; padding: 12px; background: var(--azul-medio); color: var(--branco); border: none; border-radius: 30px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
-    .admin-login .btn-login:hover { background: var(--azul-escuro); transform: translateY(-2px); }
-    .admin-login .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    .admin-login .link-register { text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--cinza-claro-texto); }
-    .admin-login .link-register a { color: var(--azul-medio); text-decoration: none; font-weight: 600; }
-    #loginMensagem { margin-top: 12px; text-align: center; font-weight: 600; }
-    .admin-dashboard { display: none; }
-    .admin-dashboard.active { display: block; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .stat-card { background: var(--branco); padding: 16px 20px; border-radius: var(--border-radius); box-shadow: var(--sombra); text-align: center; border-left: 4px solid var(--azul-medio); }
-    .stat-card h3 { font-size: 2rem; color: var(--azul-escuro); }
-    .stat-card p { color: var(--cinza-claro-texto); font-size: 0.85rem; margin: 0; }
-    .table-container { overflow-x: auto; background: var(--branco); border-radius: var(--border-radius); padding: 16px; box-shadow: var(--sombra); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    th { text-align: left; padding: 10px 12px; background: var(--azul-escuro); color: var(--branco); }
-    td { padding: 10px 12px; border-bottom: 1px solid var(--cinza-borda); }
-    .badge-status { display: inline-block; padding: 2px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; }
-    .badge-nao-lida { background: #e74c3c; color: #fff; }
-    .badge-lida { background: #2ecc71; color: #fff; }
-    .badge-ativo { background: #2ecc71; color: #fff; }
-    .badge-inativo { background: #e74c3c; color: #fff; }
-    .btn-logout { background: #e74c3c; color: #fff; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; font-weight: 600; }
-    .btn-logout:hover { background: #c0392b; }
-    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-    .admin-header h2 { color: var(--azul-escuro); margin: 0; }
-    .nav-admin { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-    .tabs button { padding: 10px 20px; border: none; border-radius: 30px; cursor: pointer; font-weight: 600; background: var(--cinza-borda); color: var(--cinza-texto); transition: var(--transition); }
-    .tabs button.active { background: var(--azul-medio); color: var(--branco); }
-    .tabs button:hover { background: var(--azul-claro); color: var(--branco); }
-    .status-api { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
-    .status-online { background: #2ecc71; color: #fff; }
-    .status-offline { background: #e74c3c; color: #fff; }
-    .funcionario-detalhes {
-      background: var(--cinza-claro);
-      padding: 12px;
+    .admin-login {
+      max-width: 400px;
+      margin: 60px auto;
+      background: var(--branco);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--sombra);
+    }
+    .admin-login h2 {
+      color: var(--azul-escuro);
+      text-align: center;
+    }
+    .admin-login .subtitle {
+      text-align: center;
+      color: var(--cinza-claro-texto);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+    .admin-login .form-group {
+      margin-bottom: 16px;
+    }
+    .admin-login .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--azul-escuro);
+    }
+    .admin-login .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--cinza-borda);
       border-radius: 8px;
+      font-size: 1rem;
+    }
+    .admin-login .form-group input:focus {
+      border-color: var(--azul-medio);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.15);
+    }
+    .admin-login .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: var(--azul-medio);
+      color: var(--branco);
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .admin-login .btn-login:hover {
+      background: var(--azul-escuro);
+      transform: translateY(-2px);
+    }
+    .admin-login .btn-login:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .admin-login .link-register {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: var(--cinza-claro-texto);
+    }
+    .admin-login .link-register a {
+      color: var(--azul-medio);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    #loginMensagem {
+      margin-top: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .admin-dashboard {
+      display: none;
+    }
+    .admin-dashboard.active {
+      display: block;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--branco);
+      padding: 16px 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--sombra);
+      text-align: center;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .stat-card h3 {
+      font-size: 2rem;
+      color: var(--azul-escuro);
+    }
+    .stat-card p {
+      color: var(--cinza-claro-texto);
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    .table-container {
+      overflow-x: auto;
+      background: var(--branco);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      box-shadow: var(--sombra);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
       font-size: 0.85rem;
     }
-    .funcionario-detalhes strong {
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      background: var(--azul-escuro);
+      color: var(--branco);
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--cinza-borda);
+    }
+    .badge-status {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .badge-nao-lida {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .badge-lida {
+      background: #2ecc71;
+      color: #fff;
+    }
+    .badge-ativo {
+      background: #2ecc71;
+      color: #fff;
+    }
+    .badge-inativo {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .btn-logout {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-logout:hover {
+      background: #c0392b;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .admin-header h2 {
       color: var(--azul-escuro);
+      margin: 0;
+    }
+    .nav-admin {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tabs button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      background: var(--cinza-borda);
+      color: var(--cinza-texto);
+      transition: var(--transition);
+    }
+    .tabs button.active {
+      background: var(--azul-medio);
+      color: var(--branco);
+    }
+    .tabs button:hover {
+      background: var(--azul-claro);
+      color: var(--branco);
+    }
+    .status-api {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .status-online {
+      background: #2ecc71;
+      color: #fff;
+    }
+    .status-offline {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .btn-excluir {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+    .btn-excluir:hover {
+      background: #c0392b;
+    }
+    .btn-ativar {
+      background: #f39c12;
+      color: #fff;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      margin-right: 4px;
+    }
+    .btn-ativar:hover {
+      background: #d68910;
     }
   </style>
 </head>
@@ -135,25 +334,18 @@
         <button data-tab="cadastrar">➕ Cadastrar Funcionário</button>
       </div>
       <div id="tab-mensagens" class="tab-content active">
-        <div class="table-container"><table><thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Cidade</th><th>Status</th><th>Ações</th></tr></thead><tbody id="mensagensTable"><tr><td colspan="7" style="text-align:center; color:#888;">Carregando...</td></tr></tbody></table></div>
+        <div class="table-container">
+          <table>
+            <thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Cidade</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="mensagensTable"><tr><td colspan="7" style="text-align:center; color:#888;">Carregando...</td></tr></tbody>
+          </table>
+        </div>
       </div>
       <div id="tab-funcionarios" class="tab-content">
         <div class="table-container">
           <table>
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Telefone</th>
-                <th>Disponibilidade</th>
-                <th>Especialidade</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="funcionariosTable">
-              <tr><td colspan="7" style="text-align:center; color:#888;">Carregando...</td></tr>
-            </tbody>
+            <thead><tr><th>Nome</th><th>Idade</th><th>Telefone</th><th>Disponibilidade</th><th>Especialidade</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="funcionariosTable"><tr><td colspan="7" style="text-align:center; color:#888;">Carregando...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -270,63 +462,81 @@ function renderMensagens(mensagens) {
   tbody.innerHTML = mensagens.map(m => `<tr><td>${new Date(m.dataEnvio).toLocaleDateString()}</td><td>${m.nome}</td><td>${m.telefone}</td><td>${m.email}</td><td>${m.cidade}</td><td><span class="badge-status ${m.lida ? 'badge-lida' : 'badge-nao-lida'}">${m.lida ? '✅ Lida' : '📩 Não lida'}</span></td><td><button onclick="marcarLida('${m._id}')" class="btn" style="padding:4px 12px; font-size:0.75rem; background:#2980B9; color:#fff; border:none; border-radius:4px;">Marcar lida</button></td></tr>`).join('');
 }
 
+// ===== FUNÇÃO RENDER FUNCIONÁRIOS COM BOTÃO EXCLUIR =====
 function renderFuncionarios(funcionarios) {
   const tbody = document.getElementById('funcionariosTable');
-  if (!funcionarios || funcionarios.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#888;">Nenhum funcionário cadastrado</td></tr>'; return; }
-  tbody.innerHTML = funcionarios.map(f => { 
-    const disp = []; 
-    if (f.disponibilidade?.manha) disp.push('🌅 Manhã'); 
-    if (f.disponibilidade?.tarde) disp.push('☀️ Tarde'); 
-    if (f.disponibilidade?.noite) disp.push('🌙 Noite'); 
-    if (f.disponibilidade?.finaisSemana) disp.push('📅 FDS'); 
-    return `<tr>
+  if (!funcionarios || funcionarios.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#888;">Nenhum funcionário cadastrado</td></tr>';
+    return;
+  }
+  tbody.innerHTML = funcionarios.map(f => {
+    const disp = [];
+    if (f.disponibilidade?.manha) disp.push('🌅 Manhã');
+    if (f.disponibilidade?.tarde) disp.push('☀️ Tarde');
+    if (f.disponibilidade?.noite) disp.push('🌙 Noite');
+    if (f.disponibilidade?.finaisSemana) disp.push('📅 FDS');
+    return `
+    <tr>
       <td><strong>${f.nomeCompleto}</strong></td>
       <td>${f.idade} anos</td>
       <td>${f.telefone}</td>
       <td>${disp.join(' / ') || 'Não informado'}</td>
       <td>${f.especialidade || 'Não informada'}</td>
-      <td><span class="badge-status ${f.ativo !== false ? 'badge-ativo' : 'badge-inativo'}">${f.ativo !== false ? '✅ Ativo' : '❌ Inativo'}</span></td>
       <td>
-        <button onclick="toggleFuncionario('${f._id}')" class="btn" style="padding:4px 12px; font-size:0.75rem; background:#f39c12; color:#fff; border:none; border-radius:4px;">${f.ativo !== false ? 'Desativar' : 'Ativar'}</button>
-        <button onclick="verDetalhes('${f._id}')" class="btn" style="padding:4px 12px; font-size:0.75rem; background:#2980B9; color:#fff; border:none; border-radius:4px; margin-top:4px;">Ver Detalhes</button>
+        <span class="badge-status ${f.ativo !== false ? 'badge-ativo' : 'badge-inativo'}">
+          ${f.ativo !== false ? '✅ Ativo' : '❌ Inativo'}
+        </span>
       </td>
-    </tr>`; 
-  }).join('');
+      <td>
+        <button onclick="toggleFuncionario('${f._id}')" class="btn-ativar">
+          ${f.ativo !== false ? 'Desativar' : 'Ativar'}
+        </button>
+        <button onclick="excluirFuncionario('${f._id}')" class="btn-excluir">
+          🗑️ Excluir
+        </button>
+      </td>
+    </tr>
+  `}).join('');
 }
 
-// ===== FUNÇÃO PARA VER DETALHES DO FUNCIONÁRIO =====
-async function verDetalhes(id) {
+// ===== MARCAR LIDA =====
+async function marcarLida(id) {
+  const token = localStorage.getItem('token');
+  try {
+    await fetch(`${API_URL}/api/mensagens/${id}/lida`, { method: 'PUT', headers: { 'Authorization': `Bearer ${token}` } });
+    carregarDados();
+  } catch { alert('Erro ao marcar mensagem'); }
+}
+
+// ===== ATIVAR/DESATIVAR =====
+async function toggleFuncionario(id) {
+  const token = localStorage.getItem('token');
+  try {
+    await fetch(`${API_URL}/api/funcionarios/${id}/toggle`, { method: 'PUT', headers: { 'Authorization': `Bearer ${token}` } });
+    carregarDados();
+  } catch { alert('Erro ao alterar status'); }
+}
+
+// ===== 🔥 EXCLUIR FUNCIONÁRIO =====
+async function excluirFuncionario(id) {
+  if (!confirm('⚠️ Tem certeza que deseja excluir este funcionário permanentemente? Esta ação não pode ser desfeita.')) return;
   const token = localStorage.getItem('token');
   try {
     const res = await fetch(`${API_URL}/api/funcionarios/${id}`, {
+      method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    const f = await res.json();
+    const data = await res.json();
     if (res.ok) {
-      const disp = [];
-      if (f.disponibilidade?.manha) disp.push('🌅 Manhã');
-      if (f.disponibilidade?.tarde) disp.push('☀️ Tarde');
-      if (f.disponibilidade?.noite) disp.push('🌙 Noite');
-      if (f.disponibilidade?.finaisSemana) disp.push('📅 FDS');
-      alert(
-        `📋 DETALHES DO FUNCIONÁRIO\n\n` +
-        `Nome: ${f.nomeCompleto}\n` +
-        `Idade: ${f.idade} anos\n` +
-        `Telefone: ${f.telefone}\n` +
-        `E-mail: ${f.userId?.email || 'Não informado'}\n` +
-        `Especialidade: ${f.especialidade || 'Não informada'}\n` +
-        `Disponibilidade: ${disp.join(' / ') || 'Não informado'}\n` +
-        `Descrição: ${f.descricao || 'Não informada'}\n` +
-        `Status: ${f.ativo !== false ? 'Ativo ✅' : 'Inativo ❌'}`
-      );
+      alert('✅ Funcionário excluído com sucesso!');
+      carregarDados();
+    } else {
+      alert('❌ Erro: ' + data.message);
     }
   } catch (err) {
-    alert('Erro ao carregar detalhes');
+    alert('❌ Erro ao excluir funcionário');
   }
 }
-
-async function marcarLida(id) { const token = localStorage.getItem('token'); try { await fetch(`${API_URL}/api/mensagens/${id}/lida`, { method: 'PUT', headers: { 'Authorization': `Bearer ${token}` } }); carregarDados(); } catch { alert('Erro ao marcar mensagem'); } }
-async function toggleFuncionario(id) { const token = localStorage.getItem('token'); try { await fetch(`${API_URL}/api/funcionarios/${id}/toggle`, { method: 'PUT', headers: { 'Authorization': `Bearer ${token}` } }); carregarDados(); } catch { alert('Erro ao alterar status'); } }
 
 // ===== CADASTRAR FUNCIONÁRIO (ADMIN) =====
 document.getElementById('cadastroFuncionarioForm').addEventListener('submit', async (e) => {
@@ -357,7 +567,17 @@ document.getElementById('cadastroFuncionarioForm').addEventListener('submit', as
   } catch (err) { msgDiv.innerHTML = `<span style="color:#e74c3c;">❌ Erro ao cadastrar: ${err.message}</span>`; }
 });
 
-document.querySelectorAll('.tabs button').forEach(btn => { btn.addEventListener('click', function() { document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active')); this.classList.add('active'); const tab = this.dataset.tab; document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.getElementById(`tab-${tab}`).classList.add('active'); }); });
+// ===== ABAS =====
+document.querySelectorAll('.tabs button').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const tab = this.dataset.tab;
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+  });
+});
+
 checkAuth();
 </script>
 </body>
