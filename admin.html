@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* ===== LOGIN ADMIN ===== */
     .admin-login { max-width: 400px; margin: 60px auto; background: var(--branco); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--sombra); }
     .admin-login h2 { color: var(--azul-escuro); text-align: center; }
     .admin-login .subtitle { text-align: center; color: var(--cinza-claro-texto); font-size: 0.9rem; margin-bottom: 24px; }
@@ -22,8 +21,6 @@
     .admin-login .link-register { text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--cinza-claro-texto); }
     .admin-login .link-register a { color: var(--azul-medio); text-decoration: none; font-weight: 600; }
     #loginMensagem { margin-top: 12px; text-align: center; font-weight: 600; }
-
-    /* ===== DASHBOARD ADMIN ===== */
     .admin-dashboard { display: none; }
     .admin-dashboard.active { display: block; }
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
@@ -53,6 +50,15 @@
     .status-api { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
     .status-online { background: #2ecc71; color: #fff; }
     .status-offline { background: #e74c3c; color: #fff; }
+    .funcionario-detalhes {
+      background: var(--cinza-claro);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--cinza-claro-texto);
+    }
+    .funcionario-detalhes strong { color: var(--azul-escuro); }
   </style>
 </head>
 <body>
@@ -84,7 +90,7 @@
 <section style="padding: 120px 0 60px;">
   <div class="container">
 
-    <!-- ===== TELA DE LOGIN ADMIN ===== -->
+    <!-- TELA DE LOGIN -->
     <div id="loginPanel" class="admin-login">
       <h2>🔐 Painel Administrativo</h2>
       <p class="subtitle">Acesso restrito a administradores</p>
@@ -92,23 +98,15 @@
         <span id="apiStatus" class="status-api status-offline">⏳ Verificando API...</span>
       </div>
       <form id="loginForm">
-        <div class="form-group">
-          <label>E-mail</label>
-          <input type="email" id="loginEmail" placeholder="seu@email.com" required>
-        </div>
-        <div class="form-group">
-          <label>Senha</label>
-          <input type="password" id="loginPassword" placeholder="********" required>
-        </div>
+        <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" placeholder="seu@email.com" required></div>
+        <div class="form-group"><label>Senha</label><input type="password" id="loginPassword" placeholder="********" required></div>
         <button type="submit" class="btn-login" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Entrar</button>
         <div id="loginMensagem"></div>
       </form>
-      <div class="link-register">
-        <a href="registrar-admin.html">Criar primeiro administrador</a>
-      </div>
+      <div class="link-register"><a href="registrar-admin.html">Criar primeiro administrador</a></div>
     </div>
 
-    <!-- ===== DASHBOARD ADMIN ===== -->
+    <!-- DASHBOARD -->
     <div id="dashboardPanel" class="admin-dashboard">
       <div class="admin-header">
         <h2>📊 Painel Administrativo</h2>
@@ -132,7 +130,16 @@
         <div class="table-container"><table><thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Cidade</th><th>Status</th><th>Ações</th></tr></thead><tbody id="mensagensTable"><tr><td colspan="7" style="text-align:center; color:#888;">Carregando...</td></tr></tbody></table></div>
       </div>
       <div id="tab-funcionarios" class="tab-content">
-        <div class="table-container"><table><thead><tr><th>Nome</th><th>Idade</th><th>Telefone</th><th>Disponibilidade</th><th>Status</th><th>Ações</th></tr></thead><tbody id="funcionariosTable"><tr><td colspan="6" style="text-align:center; color:#888;">Carregando...</td></tr></tbody></table></div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr><th>Nome</th><th>Idade</th><th>Telefone</th><th>Disponibilidade</th><th>Especialidade</th><th>Descrição</th><th>Status</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="funcionariosTable">
+              <tr><td colspan="8" style="text-align:center; color:#888;">Carregando...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div id="tab-cadastrar" class="tab-content">
         <div class="card" style="max-width:600px;">
@@ -249,8 +256,29 @@ function renderMensagens(mensagens) {
 
 function renderFuncionarios(funcionarios) {
   const tbody = document.getElementById('funcionariosTable');
-  if (!funcionarios || funcionarios.length === 0) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#888;">Nenhum funcionário cadastrado</td></tr>'; return; }
-  tbody.innerHTML = funcionarios.map(f => { const disp = []; if (f.disponibilidade?.manha) disp.push('🌅 Manhã'); if (f.disponibilidade?.tarde) disp.push('☀️ Tarde'); if (f.disponibilidade?.noite) disp.push('🌙 Noite'); if (f.disponibilidade?.finaisSemana) disp.push('📅 FDS'); return `<tr><td><strong>${f.nomeCompleto}</strong></td><td>${f.idade} anos</td><td>${f.telefone}</td><td>${disp.join(' / ') || 'Não informado'}</td><td><span class="badge-status ${f.ativo !== false ? 'badge-ativo' : 'badge-inativo'}">${f.ativo !== false ? '✅ Ativo' : '❌ Inativo'}</span></td><td><button onclick="toggleFuncionario('${f._id}')" class="btn" style="padding:4px 12px; font-size:0.75rem; background:#f39c12; color:#fff; border:none; border-radius:4px;">${f.ativo !== false ? 'Desativar' : 'Ativar'}</button></td></tr>`; }).join('');
+  if (!funcionarios || funcionarios.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#888;">Nenhum funcionário cadastrado</td></tr>';
+    return;
+  }
+  tbody.innerHTML = funcionarios.map(f => {
+    const disp = [];
+    if (f.disponibilidade?.manha) disp.push('🌅 Manhã');
+    if (f.disponibilidade?.tarde) disp.push('☀️ Tarde');
+    if (f.disponibilidade?.noite) disp.push('🌙 Noite');
+    if (f.disponibilidade?.finaisSemana) disp.push('📅 FDS');
+    return `
+      <tr>
+        <td><strong>${f.nomeCompleto}</strong></td>
+        <td>${f.idade} anos</td>
+        <td>${f.telefone}</td>
+        <td>${disp.join(' / ') || 'Não informado'}</td>
+        <td>${f.especialidade || 'Não informada'}</td>
+        <td style="max-width:150px; white-space:normal; word-break:break-word;">${f.descricao || 'Não informada'}</td>
+        <td><span class="badge-status ${f.ativo !== false ? 'badge-ativo' : 'badge-inativo'}">${f.ativo !== false ? '✅ Ativo' : '❌ Inativo'}</span></td>
+        <td><button onclick="toggleFuncionario('${f._id}')" class="btn" style="padding:4px 12px; font-size:0.75rem; background:#f39c12; color:#fff; border:none; border-radius:4px;">${f.ativo !== false ? 'Desativar' : 'Ativar'}</button></td>
+      </tr>
+    `;
+  }).join('');
 }
 
 async function marcarLida(id) { const token = localStorage.getItem('token'); try { await fetch(`${API_URL}/api/mensagens/${id}/lida`, { method: 'PUT', headers: { 'Authorization': `Bearer ${token}` } }); carregarDados(); } catch { alert('Erro ao marcar mensagem'); } }
