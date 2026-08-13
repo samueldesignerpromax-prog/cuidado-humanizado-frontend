@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bem-vindo - Cuidado Humanizado Batista</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -80,6 +80,7 @@
     .loading { text-align: center; padding: 30px; color: #888; }
     .loading i { font-size: 2rem; color: #2980B9; animation: spin 1s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .error { color: #e74c3c; text-align: center; padding: 20px; }
   </style>
 </head>
 <body>
@@ -94,26 +95,26 @@
 
 <div class="container">
   <div class="welcome-box">
-    <!-- 🔥 MENSAGEM DE BOAS-VINDAS (sempre visível) -->
     <div class="welcome-message">
       <i class="fas fa-hand-peace"></i> Bem-vindo ao Cuidado Humanizado Batista!
     </div>
 
-    <!-- Área de carregamento -->
     <div id="loadingArea" class="loading">
       <i class="fas fa-spinner"></i>
       <p>Carregando seus dados...</p>
     </div>
 
-    <!-- Área do perfil (inicialmente oculta) -->
     <div id="perfilArea" style="display:none;">
       <div style="text-align:center; font-size:3rem; color:#2980B9;"><i class="fas fa-user-circle"></i></div>
       <h2 style="text-align:center; color:#1A5276; margin:8px 0;" id="nomeFuncionario">-</h2>
       <p style="text-align:center; color:#888;" id="emailFuncionario">-</p>
-
       <div id="infoContainer"></div>
-
       <button class="btn-sair" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    </div>
+
+    <div id="errorArea" class="error" style="display:none;">
+      <p>❌ Erro ao carregar perfil. Tente novamente.</p>
+      <button onclick="carregarPerfil()" style="margin-top:10px; padding:6px 16px; background:#2980B9; color:white; border:none; border-radius:4px;">Tentar novamente</button>
     </div>
   </div>
 </div>
@@ -129,6 +130,7 @@ function verificarAutenticacao() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!token || user.role !== 'funcionario') {
+    alert('Você precisa estar logado como funcionário.');
     window.location.href = 'login-funcionario.html';
     return;
   }
@@ -146,6 +148,7 @@ async function carregarPerfil() {
 
     document.getElementById('loadingArea').style.display = 'none';
     document.getElementById('perfilArea').style.display = 'block';
+    document.getElementById('errorArea').style.display = 'none';
 
     document.getElementById('nomeFuncionario').textContent = dados.nomeCompleto || 'Nome não informado';
     document.getElementById('emailFuncionario').textContent = dados.userId?.email || 'Email não informado';
@@ -156,13 +159,16 @@ async function carregarPerfil() {
     const infos = [
       { label: '📅 Idade', value: dados.idade ? `${dados.idade} anos` : 'Não informado' },
       { label: '📞 Telefone', value: dados.telefone || 'Não informado' },
-      { label: '💼 Profissão', value: dados.profissao || dados.especialidade || 'Não informada' },
-      { label: '⏳ Experiência', value: dados.experiencia || 'Não informada' },
-      { label: '🏠 Home Care', value: dados.homecare || 'Não informado' },
-      { label: '🕒 Disponibilidade', value: dados.disponibilidadeTempo || 'Não informado' },
-      { label: '📋 Serviços', value: dados.servicos || 'Não informado' },
-      { label: '📅 Finais de semana', value: dados.fimSemana || 'Não informado' },
-      { label: '📝 Sobre você', value: dados.experienciaTexto || dados.descricao || 'Não informado' }
+      { label: '💼 Especialidade', value: dados.especialidade || 'Não informada' },
+      { label: '📝 Descrição', value: dados.descricao || 'Não informada' },
+      { label: '🕒 Disponibilidade', value: (() => {
+        const disp = [];
+        if (dados.disponibilidade?.manha) disp.push('🌅 Manhã');
+        if (dados.disponibilidade?.tarde) disp.push('☀️ Tarde');
+        if (dados.disponibilidade?.noite) disp.push('🌙 Noite');
+        if (dados.disponibilidade?.finaisSemana) disp.push('📅 FDS');
+        return disp.length ? disp.join(' / ') : 'Não informado';
+      })() }
     ];
 
     infos.forEach(info => {
@@ -173,11 +179,8 @@ async function carregarPerfil() {
     });
 
   } catch (err) {
-    console.error(err);
-    document.getElementById('loadingArea').innerHTML = `
-      <p style="color:#e74c3c;">❌ Erro ao carregar perfil: ${err.message}</p>
-      <button onclick="carregarPerfil()" style="margin-top:10px; padding:6px 16px; background:#2980B9; color:white; border:none; border-radius:4px;">Tentar novamente</button>
-    `;
+    document.getElementById('loadingArea').style.display = 'none';
+    document.getElementById('errorArea').style.display = 'block';
   }
 }
 
