@@ -52,13 +52,13 @@
     .status-offline { background: #e74c3c; color: #fff; }
     .funcionario-detalhes {
       background: var(--cinza-claro);
+      padding: 12px;
       border-radius: 8px;
-      padding: 8px 12px;
-      margin-top: 4px;
-      font-size: 0.75rem;
-      color: var(--cinza-claro-texto);
+      font-size: 0.85rem;
     }
-    .funcionario-detalhes strong { color: var(--azul-escuro); }
+    .funcionario-detalhes strong {
+      color: var(--azul-escuro);
+    }
   </style>
 </head>
 <body>
@@ -90,7 +90,7 @@
 <section style="padding: 120px 0 60px;">
   <div class="container">
 
-    <!-- TELA DE LOGIN -->
+    <!-- ===== TELA DE LOGIN ADMIN ===== -->
     <div id="loginPanel" class="admin-login">
       <h2>🔐 Painel Administrativo</h2>
       <p class="subtitle">Acesso restrito a administradores</p>
@@ -98,15 +98,23 @@
         <span id="apiStatus" class="status-api status-offline">⏳ Verificando API...</span>
       </div>
       <form id="loginForm">
-        <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" placeholder="seu@email.com" required></div>
-        <div class="form-group"><label>Senha</label><input type="password" id="loginPassword" placeholder="********" required></div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Senha</label>
+          <input type="password" id="loginPassword" placeholder="********" required>
+        </div>
         <button type="submit" class="btn-login" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Entrar</button>
         <div id="loginMensagem"></div>
       </form>
-      <div class="link-register"><a href="registrar-admin.html">Criar primeiro administrador</a></div>
+      <div class="link-register">
+        <a href="registrar-admin.html">Criar primeiro administrador</a>
+      </div>
     </div>
 
-    <!-- DASHBOARD -->
+    <!-- ===== DASHBOARD ADMIN ===== -->
     <div id="dashboardPanel" class="admin-dashboard">
       <div class="admin-header">
         <h2>📊 Painel Administrativo</h2>
@@ -133,10 +141,18 @@
         <div class="table-container">
           <table>
             <thead>
-              <tr><th>Nome</th><th>Idade</th><th>Telefone</th><th>Disponibilidade</th><th>Especialidade</th><th>Descrição</th><th>Status</th><th>Ações</th></tr>
+              <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Telefone</th>
+                <th>Disponibilidade</th>
+                <th>Especialidade</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
             </thead>
             <tbody id="funcionariosTable">
-              <tr><td colspan="8" style="text-align:center; color:#888;">Carregando...</td></tr>
+              <tr><td colspan="7" style="text-align:center; color:#888;">Carregando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -256,29 +272,57 @@ function renderMensagens(mensagens) {
 
 function renderFuncionarios(funcionarios) {
   const tbody = document.getElementById('funcionariosTable');
-  if (!funcionarios || funcionarios.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#888;">Nenhum funcionário cadastrado</td></tr>';
-    return;
-  }
-  tbody.innerHTML = funcionarios.map(f => {
-    const disp = [];
-    if (f.disponibilidade?.manha) disp.push('🌅 Manhã');
-    if (f.disponibilidade?.tarde) disp.push('☀️ Tarde');
-    if (f.disponibilidade?.noite) disp.push('🌙 Noite');
-    if (f.disponibilidade?.finaisSemana) disp.push('📅 FDS');
-    return `
-      <tr>
-        <td><strong>${f.nomeCompleto}</strong></td>
-        <td>${f.idade} anos</td>
-        <td>${f.telefone}</td>
-        <td>${disp.join(' / ') || 'Não informado'}</td>
-        <td>${f.especialidade || 'Não informada'}</td>
-        <td style="max-width:150px; white-space:normal; word-break:break-word;">${f.descricao || 'Não informada'}</td>
-        <td><span class="badge-status ${f.ativo !== false ? 'badge-ativo' : 'badge-inativo'}">${f.ativo !== false ? '✅ Ativo' : '❌ Inativo'}</span></td>
-        <td><button onclick="toggleFuncionario('${f._id}')" class="btn" style="padding:4px 12px; font-size:0.75rem; background:#f39c12; color:#fff; border:none; border-radius:4px;">${f.ativo !== false ? 'Desativar' : 'Ativar'}</button></td>
-      </tr>
-    `;
+  if (!funcionarios || funcionarios.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#888;">Nenhum funcionário cadastrado</td></tr>'; return; }
+  tbody.innerHTML = funcionarios.map(f => { 
+    const disp = []; 
+    if (f.disponibilidade?.manha) disp.push('🌅 Manhã'); 
+    if (f.disponibilidade?.tarde) disp.push('☀️ Tarde'); 
+    if (f.disponibilidade?.noite) disp.push('🌙 Noite'); 
+    if (f.disponibilidade?.finaisSemana) disp.push('📅 FDS'); 
+    return `<tr>
+      <td><strong>${f.nomeCompleto}</strong></td>
+      <td>${f.idade} anos</td>
+      <td>${f.telefone}</td>
+      <td>${disp.join(' / ') || 'Não informado'}</td>
+      <td>${f.especialidade || 'Não informada'}</td>
+      <td><span class="badge-status ${f.ativo !== false ? 'badge-ativo' : 'badge-inativo'}">${f.ativo !== false ? '✅ Ativo' : '❌ Inativo'}</span></td>
+      <td>
+        <button onclick="toggleFuncionario('${f._id}')" class="btn" style="padding:4px 12px; font-size:0.75rem; background:#f39c12; color:#fff; border:none; border-radius:4px;">${f.ativo !== false ? 'Desativar' : 'Ativar'}</button>
+        <button onclick="verDetalhes('${f._id}')" class="btn" style="padding:4px 12px; font-size:0.75rem; background:#2980B9; color:#fff; border:none; border-radius:4px; margin-top:4px;">Ver Detalhes</button>
+      </td>
+    </tr>`; 
   }).join('');
+}
+
+// ===== FUNÇÃO PARA VER DETALHES DO FUNCIONÁRIO =====
+async function verDetalhes(id) {
+  const token = localStorage.getItem('token');
+  try {
+    const res = await fetch(`${API_URL}/api/funcionarios/${id}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const f = await res.json();
+    if (res.ok) {
+      const disp = [];
+      if (f.disponibilidade?.manha) disp.push('🌅 Manhã');
+      if (f.disponibilidade?.tarde) disp.push('☀️ Tarde');
+      if (f.disponibilidade?.noite) disp.push('🌙 Noite');
+      if (f.disponibilidade?.finaisSemana) disp.push('📅 FDS');
+      alert(
+        `📋 DETALHES DO FUNCIONÁRIO\n\n` +
+        `Nome: ${f.nomeCompleto}\n` +
+        `Idade: ${f.idade} anos\n` +
+        `Telefone: ${f.telefone}\n` +
+        `E-mail: ${f.userId?.email || 'Não informado'}\n` +
+        `Especialidade: ${f.especialidade || 'Não informada'}\n` +
+        `Disponibilidade: ${disp.join(' / ') || 'Não informado'}\n` +
+        `Descrição: ${f.descricao || 'Não informada'}\n` +
+        `Status: ${f.ativo !== false ? 'Ativo ✅' : 'Inativo ❌'}`
+      );
+    }
+  } catch (err) {
+    alert('Erro ao carregar detalhes');
+  }
 }
 
 async function marcarLida(id) { const token = localStorage.getItem('token'); try { await fetch(`${API_URL}/api/mensagens/${id}/lida`, { method: 'PUT', headers: { 'Authorization': `Bearer ${token}` } }); carregarDados(); } catch { alert('Erro ao marcar mensagem'); } }
