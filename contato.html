@@ -6,7 +6,193 @@
   <title>Contato - Cuidado Humanizado Batista</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    header {
+      background: #1A5276;
+      padding: 12px 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+    .navbar { display: flex; justify-content: space-between; align-items: center; }
+    .logo-img {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-img img { height: 40px; width: auto; }
+    .logo-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .logo-text .destaque { color: #5DADE2; }
+    .logo-text small { font-size: 0.6rem; color: #B0C4D0; display: block; }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .nav-links a:hover { opacity: 1; color: #5DADE2; }
+    .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: #fff; background: none; border: none; }
+    .hero { padding: 140px 0 60px; background: #f5f7fa; }
+    .section-titulo { font-size: 2.4rem; color: #1A5276; margin-bottom: 12px; font-weight: 700; }
+    .section-titulo span { color: #2E7D32; }
+    .section-subtitulo { font-size: 1.2rem; color: #7A7A7A; margin-bottom: 48px; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .text-center { text-align: center; }
+    .contato-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #1A5276; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #E0E4E8;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: #fff;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #2980B9;
+      outline: none;
+    }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .btn-primario {
+      background: #2E7D32;
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+    .btn-primario:hover { background: #1B5E20; transform: translateY(-2px); }
+    .info-contato {
+      background: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-top: 4px solid #2980B9;
+    }
+    .info-contato-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid #E0E4E8;
+    }
+    .info-contato-item:last-child { border-bottom: none; }
+    .info-contato-item i { font-size: 1.4rem; color: #2980B9; width: 32px; text-align: center; }
+    .info-contato-item p { margin: 0; }
+    .mapa-placeholder {
+      background: #EBF5FB;
+      border-radius: 16px;
+      padding: 60px 20px;
+      text-align: center;
+      margin-top: 32px;
+      border: 1px dashed #5DADE2;
+    }
+    .mapa-placeholder i { font-size: 4rem; color: #2980B9; margin-bottom: 12px; }
+    footer {
+      margin-top: auto;
+      background: #0A1E2F;
+      color: #fff;
+      padding: 40px 0 20px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-col h4 { color: #5DADE2; margin-bottom: 16px; font-size: 1.1rem; }
+    .footer-col p, .footer-col a { color: #B0C4D0; text-decoration: none; display: block; padding: 4px 0; }
+    .footer-col a:hover { color: #fff; padding-left: 4px; }
+    .footer-bottom { border-top: 1px solid #1A3A4F; padding-top: 24px; text-align: center; color: #8A9A9A; font-size: 0.9rem; }
+    .whatsapp-float-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .whatsapp-float {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      text-decoration: none;
+      animation: pulse-whatsapp 2s infinite;
+    }
+    .whatsapp-float.samuel { background-color: #25d366; }
+    .whatsapp-float.danielly { background-color: #128C7E; border: 2px solid #5DADE2; }
+    .whatsapp-float.agencia { background-color: #34B7F1; }
+    @keyframes pulse-whatsapp {
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+    #btn-topo {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      background: #2980B9;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+      z-index: 999;
+    }
+    #btn-topo.show { opacity: 1; visibility: visible; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .nav-links { display: none; flex-direction: column; width: 100%; gap: 12px; padding: 16px 0; background: #1A5276; }
+      .nav-links.active { display: flex; }
+      .contato-grid { grid-template-columns: 1fr; }
+      .hero { padding: 120px 0 40px; }
+      .section-titulo { font-size: 1.8rem; }
+    }
+    @media (max-width: 600px) {
+      .info-contato { padding: 20px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -14,8 +200,8 @@
   <div class="container">
     <nav class="navbar">
       <a href="index.html" class="logo-img">
-        <img src="https://i.postimg.cc/44HtyBF7/eb74c209-2d52-4f7a-a0ee-88cc4ad9f9d8.jpg" alt="Cuidado Humanizado Batista" style="height: 45px; width: auto;">
-        <span class="logo-text">CUIDADO<br><span class="destaque">HUMANIZADO</span><br><small style="font-size:0.6rem; color:#B0C4D0;">BATISTA</small></span>
+        <img src="https://i.postimg.cc/44HtyBF7/eb74c209-2d52-4f7a-a0ee-88cc4ad9f9d8.jpg" alt="Cuidado Humanizado Batista">
+        <span class="logo-text">CUIDADO<br><span class="destaque">HUMANIZADO</span><br><small>BATISTA</small></span>
       </a>
       <button class="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
       <ul class="nav-links">
@@ -32,7 +218,7 @@
   </div>
 </header>
 
-<section style="padding: 140px 0 60px;">
+<section class="hero">
   <div class="container">
     <div class="text-center animate-on-scroll">
       <h1 class="section-titulo">Fale <span>Conosco</span></h1>
@@ -40,27 +226,27 @@
     </div>
 
     <div class="contato-grid">
-      <div class="animate-on-scroll">
-        <form id="formContato">
+      <div>
+        <form>
           <div class="form-group">
-            <label for="nome">Nome completo</label>
-            <input type="text" id="nome" placeholder="Seu nome" required>
+            <label>Nome completo</label>
+            <input type="text" placeholder="Seu nome" required>
           </div>
           <div class="form-group">
-            <label for="telefone">Telefone</label>
-            <input type="tel" id="telefone" placeholder="(11) 99999-9999" required>
+            <label>Telefone</label>
+            <input type="tel" placeholder="(11) 99999-9999" required>
           </div>
           <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" placeholder="seu@email.com" required>
+            <label>E-mail</label>
+            <input type="email" placeholder="seu@email.com" required>
           </div>
           <div class="form-group">
-            <label for="cidade">Cidade</label>
-            <input type="text" id="cidade" placeholder="Sua cidade" required>
+            <label>Cidade</label>
+            <input type="text" placeholder="Sua cidade" required>
           </div>
           <div class="form-group">
-            <label for="tipo-atendimento">Tipo de atendimento</label>
-            <select id="tipo-atendimento" required>
+            <label>Tipo de atendimento</label>
+            <select required>
               <option value="">Selecione...</option>
               <option value="idosos">Acompanhamento de Idosos</option>
               <option value="enfermagem">Enfermagem Domiciliar</option>
@@ -68,20 +254,18 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="mensagem">Mensagem</label>
-            <textarea id="mensagem" placeholder="Conte-nos como podemos ajudar..." required></textarea>
+            <label>Mensagem</label>
+            <textarea placeholder="Conte-nos como podemos ajudar..." required></textarea>
           </div>
-          <button type="submit" class="btn btn-primario" style="width: 100%;" id="btnEnviar">
+          <button type="submit" class="btn-primario">
             <i class="fas fa-paper-plane"></i> Solicitar atendimento
           </button>
-          <div id="statusMensagem" style="margin-top: 16px; text-align: center; font-weight: 600;"></div>
         </form>
       </div>
 
-      <div class="animate-on-scroll">
+      <div>
         <div class="info-contato">
-          <h3 style="margin-bottom: 20px; color: var(--azul-escuro);">Informações de contato</h3>
-
+          <h3 style="margin-bottom: 20px; color: #1A5276;">Informações de contato</h3>
           <div class="info-contato-item" style="background: #EBF5FB; border-radius: 8px; padding: 10px 12px;">
             <i class="fas fa-user-circle" style="color: #5DADE2;"></i>
             <div>
@@ -89,31 +273,27 @@
               <p><a href="https://wa.me/5511968090892" target="_blank" style="color: #2980B9; font-weight: 600;">(11) 96809-0892</a></p>
             </div>
           </div>
-
           <div class="info-contato-item">
             <i class="fas fa-user-circle"></i>
             <div>
               <p><strong>Samuel</strong></p>
-              <p><a href="https://wa.me/5511913031275" target="_blank" style="color: var(--azul-medio);">(11) 91303-1275</a></p>
+              <p><a href="https://wa.me/5511913031275" target="_blank" style="color: #2980B9;">(11) 91303-1275</a></p>
             </div>
           </div>
-
           <div class="info-contato-item">
             <i class="fas fa-building"></i>
             <div>
               <p><strong>Agência</strong></p>
-              <p><a href="https://wa.me/5511991940004" target="_blank" style="color: var(--azul-medio);">(11) 99194-0004</a></p>
+              <p><a href="https://wa.me/5511991940004" target="_blank" style="color: #2980B9;">(11) 99194-0004</a></p>
             </div>
           </div>
-
           <div class="info-contato-item">
             <i class="fas fa-envelope"></i>
             <div>
               <p><strong>E-mail</strong></p>
-              <p><a href="mailto:contato@cuidadohumanizado.com" style="color: var(--azul-medio);">contato@cuidadohumanizado.com</a></p>
+              <p><a href="mailto:contato@cuidadohumanizado.com" style="color: #2980B9;">contato@cuidadohumanizado.com</a></p>
             </div>
           </div>
-
           <div class="info-contato-item">
             <i class="fas fa-clock"></i>
             <div>
@@ -139,9 +319,9 @@
       <div class="footer-col">
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
           <img src="https://i.postimg.cc/44HtyBF7/eb74c209-2d52-4f7a-a0ee-88cc4ad9f9d8.jpg" alt="Cuidado Humanizado Batista" style="height: 45px; width: auto;">
-          <span style="font-size: 1.4rem; font-weight: 700; color: var(--branco);">Cuidado Humanizado Batista</span>
+          <span style="font-size: 1.4rem; font-weight: 700; color: #fff;">Cuidado Humanizado Batista</span>
         </div>
-        <p style="color: var(--azul-claro); font-weight: 500; font-size: 1.1rem; margin-bottom: 12px;"><i class="fas fa-quote-left" style="font-size: 0.8rem;"></i> Carinho que transforma <i class="fas fa-quote-right" style="font-size: 0.8rem;"></i></p>
+        <p style="color: #5DADE2; font-weight: 500; font-size: 1.1rem; margin-bottom: 12px;"><i class="fas fa-quote-left" style="font-size: 0.8rem;"></i> Carinho que transforma <i class="fas fa-quote-right" style="font-size: 0.8rem;"></i></p>
         <div style="margin-top: 16px; border-top: 1px solid #1A3A4F; padding-top: 16px;">
           <p style="color: #B0C4D0; font-size: 0.9rem; margin-bottom: 4px;"><i class="fas fa-user-circle" style="color: #5DADE2;"></i> <strong style="color: #5DADE2;">Danielly (Principal)</strong> <a href="tel:+5511968090892" style="color: #5DADE2; text-decoration: none;">(11) 96809-0892</a></p>
           <p style="color: #B0C4D0; font-size: 0.9rem; margin-bottom: 4px;"><i class="fas fa-user-circle"></i> <strong>Samuel</strong> <a href="tel:+5511913031275" style="color: #B0C4D0; text-decoration: none;">(11) 91303-1275</a></p>
@@ -157,88 +337,49 @@
 </footer>
 
 <div class="whatsapp-float-container">
-  <a href="https://wa.me/5511968090892" target="_blank" class="whatsapp-float danielly" style="background-color: #128C7E; border: 2px solid #5DADE2;"><i class="fab fa-whatsapp"></i><span class="label" style="background: #5DADE2; color: #fff;">Danielly (Principal)</span></a>
-  <a href="https://wa.me/5511913031275" target="_blank" class="whatsapp-float samuel"><i class="fab fa-whatsapp"></i><span class="label">Samuel</span></a>
-  <a href="https://wa.me/5511991940004" target="_blank" class="whatsapp-float agencia" style="background-color: #34B7F1;"><i class="fab fa-whatsapp"></i><span class="label">Agência</span></a>
+  <a href="https://wa.me/5511968090892" target="_blank" class="whatsapp-float danielly"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://wa.me/5511913031275" target="_blank" class="whatsapp-float samuel"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://wa.me/5511991940004" target="_blank" class="whatsapp-float agencia"><i class="fab fa-whatsapp"></i></a>
 </div>
 
 <button id="btn-topo"><i class="fas fa-chevron-up"></i></button>
 
 <script>
-const API_URL = 'https://backend-cuidado-humanizado-api.onrender.com';
-
-document.getElementById('formContato').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const nome = document.getElementById('nome').value.trim();
-  const telefone = document.getElementById('telefone').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const cidade = document.getElementById('cidade').value.trim();
-  const tipoAtendimento = document.getElementById('tipo-atendimento').value;
-  const mensagem = document.getElementById('mensagem').value.trim();
-
-  const btn = document.getElementById('btnEnviar');
-  const status = document.getElementById('statusMensagem');
-
-  if (!nome || !telefone || !email || !cidade || !tipoAtendimento || !mensagem) {
-    status.innerHTML = '<span style="color:#e74c3c;">⚠️ Preencha todos os campos obrigatórios.</span>';
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-  status.innerHTML = '';
-
-  try {
-    const res = await fetch(`${API_URL}/api/mensagens`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, telefone, email, cidade, tipoAtendimento, mensagem })
+  // Menu mobile
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      const icon = this.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+      }
     });
-    const data = await res.json();
-
-    if (res.ok) {
-      status.innerHTML = '<span style="color:#2ecc71;">✅ Mensagem enviada com sucesso! Entraremos em contato em breve.</span>';
-      document.getElementById('formContato').reset();
-    } else {
-      status.innerHTML = `<span style="color:#e74c3c;">❌ Erro: ${data.message || 'Tente novamente.'}</span>`;
-    }
-  } catch (err) {
-    status.innerHTML = '<span style="color:#e74c3c;">❌ Erro ao conectar com o servidor. Verifique sua internet.</span>';
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Solicitar atendimento';
   }
-});
 
-// ===== BOTÃO VOLTAR AO TOPO =====
-const btnTopo = document.getElementById('btn-topo');
-if (btnTopo) {
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 300) {
-      btnTopo.classList.add('show');
-    } else {
-      btnTopo.classList.remove('show');
-    }
-  });
-  btnTopo.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
+  // Botão topo
+  const btnTopo = document.getElementById('btn-topo');
+  if (btnTopo) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        btnTopo.classList.add('show');
+      } else {
+        btnTopo.classList.remove('show');
+      }
+    });
+    btnTopo.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
-// ===== MENU MOBILE =====
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-if (hamburger && navLinks) {
-  hamburger.addEventListener('click', function() {
-    navLinks.classList.toggle('active');
-    const icon = this.querySelector('i');
-    if (icon) {
-      icon.classList.toggle('fa-bars');
-      icon.classList.toggle('fa-times');
-    }
+  // Formulário (apenas alerta para teste)
+  document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('✅ Mensagem enviada com sucesso! (protótipo)');
+    this.reset();
   });
-}
 </script>
 </body>
 </html>
