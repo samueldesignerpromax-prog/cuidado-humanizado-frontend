@@ -441,23 +441,21 @@ document.getElementById('formContato').addEventListener('submit', async function
   feedback.textContent = '⏳ Enviando sua mensagem...';
 
   try {
-    // Envia para a API
-    const response = await fetch(`${API_URL}/api/contato`, {
+    // 🔥 ENVIA PARA A API (rota /api/mensagens)
+    const response = await fetch(`${API_URL}/api/mensagens`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        nome,
-        telefone,
-        email,
-        cidade,
+        nome: nome,
+        telefone: telefone,
+        email: email,
+        cidade: cidade,
         tipoAtendimento: tipo,
-        mensagem,
-        // Campos adicionais que podem ser úteis
-        assunto: `Contato via Site - ${tipo}`,
-        origem: 'site_contato',
-        status: 'pendente'
+        mensagem: mensagem,
+        lida: false,
+        respondida: false
       })
     });
 
@@ -467,32 +465,23 @@ document.getElementById('formContato').addEventListener('submit', async function
       throw new Error(data.message || data.error || 'Erro ao enviar mensagem');
     }
 
-    // Sucesso!
+    // ✅ SUCESSO!
     feedback.className = 'sucesso';
     feedback.textContent = '✅ Mensagem enviada com sucesso! Entraremos em contato em breve.';
     
     // Limpa o formulário
     this.reset();
 
-    // Opcional: notificação adicional via toast ou alert
-    console.log('Mensagem enviada:', data);
+    console.log('📩 Mensagem enviada com sucesso!');
 
   } catch (error) {
-    console.error('Erro ao enviar:', error);
+    console.error('❌ Erro ao enviar:', error);
     feedback.className = 'erro';
     feedback.textContent = `❌ ${error.message || 'Erro ao enviar mensagem. Tente novamente mais tarde.'}`;
   } finally {
     // Reabilita o botão
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-paper-plane"></i> Solicitar atendimento';
-
-    // Esconde a mensagem após 10 segundos (opcional)
-    setTimeout(() => {
-      if (feedback.className === 'sucesso' || feedback.className === 'erro') {
-        feedback.style.display = 'none';
-        setTimeout(() => { feedback.style.display = ''; }, 100);
-      }
-    }, 10000);
   }
 });
 </script>
