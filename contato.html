@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    /* ===== ESTILOS (mesmo que antes) ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', sans-serif;
@@ -427,21 +428,19 @@ document.getElementById('formContato').addEventListener('submit', async function
   const feedback = document.getElementById('mensagemFeedback');
   const btn = document.getElementById('btnEnviar');
 
-  // Validação básica
   if (!nome || !telefone || !email || !cidade || !tipo || !mensagem) {
     feedback.className = 'erro';
     feedback.textContent = '⚠️ Por favor, preencha todos os campos obrigatórios.';
     return;
   }
 
-  // Desabilita botão e mostra carregando
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
   feedback.className = 'carregando';
   feedback.textContent = '⏳ Enviando sua mensagem...';
 
   try {
-    // 🔥 ENVIA PARA A API (rota /api/mensagens)
+    // 🔥 ENVIA PARA A API (campos corretos)
     const response = await fetch(`${API_URL}/api/mensagens`, {
       method: 'POST',
       headers: {
@@ -465,21 +464,15 @@ document.getElementById('formContato').addEventListener('submit', async function
       throw new Error(data.message || data.error || 'Erro ao enviar mensagem');
     }
 
-    // ✅ SUCESSO!
     feedback.className = 'sucesso';
     feedback.textContent = '✅ Mensagem enviada com sucesso! Entraremos em contato em breve.';
-    
-    // Limpa o formulário
     this.reset();
 
-    console.log('📩 Mensagem enviada com sucesso!');
-
   } catch (error) {
-    console.error('❌ Erro ao enviar:', error);
+    console.error('Erro ao enviar:', error);
     feedback.className = 'erro';
-    feedback.textContent = `❌ ${error.message || 'Erro ao enviar mensagem. Tente novamente mais tarde.'}`;
+    feedback.textContent = `❌ ${error.message || 'Erro ao enviar mensagem. Tente novamente.'}`;
   } finally {
-    // Reabilita o botão
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-paper-plane"></i> Solicitar atendimento';
   }
